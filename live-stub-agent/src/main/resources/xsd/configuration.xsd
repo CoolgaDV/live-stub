@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://ls.cdv/configuration"
+        xmlns:tns="http://ls.cdv/configuration"
+        elementFormDefault="qualified">
+
+    <element name="configuration">
+        <complexType>
+            <sequence>
+                <element name="class" type="tns:Class" maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <complexType name="Class">
+        <sequence>
+            <element name="method" type="tns:Method" maxOccurs="unbounded"/>
+        </sequence>
+        <attribute name="name" type="string" use="required"/>
+    </complexType>
+
+    <complexType name="Method">
+        <sequence>
+            <element name="before" type="string" minOccurs="0"/>
+            <element name="body" type="string" minOccurs="0"/>
+            <element name="after" type="string" minOccurs="0"/>
+        </sequence>
+        <attribute name="name" type="string" use="required"/>
+    </complexType>
+
+</schema>
