@@ -46,14 +46,27 @@ public class CommandLineParametersTest {
     }
 
     @Test
-    public void testDefaultVerboseValue() {
+    public void testDefaultVerboseValueIsFalse() {
         System.clearProperty(CommandLineParameters.VERBOSE);
         CommandLineParameters parameters = CommandLineParameters.read();
         assertFalse(parameters.isVerbose());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testAbsentConfigurationLocationFailure() {
+    @Test
+    public void testVerboseIsCaseInsensitive() {
+        System.setProperty(CommandLineParameters.VERBOSE, "TrUe");
+        CommandLineParameters parameters = CommandLineParameters.read();
+        assertTrue(parameters.isVerbose());
+    }
+
+    @Test(expected = InvalidConfigurationException.class)
+    public void testVerboseValueIsInvalid() {
+        System.setProperty(CommandLineParameters.VERBOSE, "123");
+        CommandLineParameters.read();
+    }
+
+    @Test(expected = InvalidConfigurationException.class)
+    public void testConfigurationLocationIsAbsent() {
         System.clearProperty(CommandLineParameters.CONFIGURATION_LOCATION);
         CommandLineParameters.read();
     }

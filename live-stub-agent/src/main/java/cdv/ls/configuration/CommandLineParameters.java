@@ -13,12 +13,16 @@ public class CommandLineParameters {
     static final String CONFIGURATION_LOCATION = "live-stub.configuration-location";
 
     public static CommandLineParameters read() {
-        boolean verbose = Boolean.valueOf(System.getProperty(VERBOSE, Boolean.FALSE.toString()));
+        String verbose = System.getProperty(VERBOSE, Boolean.FALSE.toString()).toLowerCase();
+        if ( ! Boolean.FALSE.toString().equals(verbose) && ! Boolean.TRUE.toString().equals(verbose)) {
+            throw new InvalidConfigurationException("'Verbose' property value is incorrect. " +
+                    "It should be case insensitive 'true' or 'false'");
+        }
         String configurationLocation = System.getProperty(CONFIGURATION_LOCATION);
         if (configurationLocation == null) {
-            throw new IllegalArgumentException("Configuration location was not specified");
+            throw new InvalidConfigurationException("'Configuration location' property was not specified");
         }
-        return new CommandLineParameters(verbose, configurationLocation);
+        return new CommandLineParameters(Boolean.valueOf(verbose), configurationLocation);
     }
 
     private final boolean verbose;
