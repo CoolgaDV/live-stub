@@ -3,7 +3,6 @@ package cdv.ls.configuration;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.xml.bind.JAXBException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -20,7 +19,7 @@ public class ConfigurationLoaderTest {
             .resolve("configuration");
 
     @Test
-    public void testConfigurationIsCorrect() throws Exception {
+    public void testConfigurationIsCorrect() {
         Configuration configuration = loadConfiguration("correct.xml");
         Assert.assertNotNull(configuration);
         Assert.assertEquals(1, configuration.getClazz().size());
@@ -32,36 +31,86 @@ public class ConfigurationLoaderTest {
         Method method = cls.getMethod().get(0);
         Assert.assertEquals("baz", method.getName());
         Assert.assertNull(method.getBody());
-        Assert.assertEquals("System.out.println(\"Hello !\");", method.getBefore());
-        Assert.assertEquals("System.out.println(\"Bye !\");", method.getAfter());
+        Assert.assertEquals("System.out.println(\"Before\");", method.getBefore());
+        Assert.assertEquals("System.out.println(\"After\");", method.getAfter());
     }
 
     @Test(expected = InvalidConfigurationException.class)
-    public void testConfigurationLocationIsEmpty() throws Exception {
+    public void testConfigurationLocationIsEmpty() {
         new ConfigurationLoader("").load();
     }
 
     @Test(expected = InvalidConfigurationException.class)
-    public void testConfigurationLocationNotExist() throws Exception {
+    public void testConfigurationLocationNotExist() {
         loadConfiguration("absent.xml");
     }
 
     @Test(expected = InvalidConfigurationException.class)
-    public void testConfigurationLocationIsDirectory() throws Exception {
+    public void testConfigurationLocationIsDirectory() {
         loadConfiguration("");
     }
 
     @Test(expected = InvalidConfigurationException.class)
-    public void testConfigurationXmlIsInvalid() throws Exception {
+    public void testConfigurationXmlIsInvalid() {
         loadConfiguration("incorrect.xml");
     }
 
-    private Configuration loadConfiguration(String fileName) throws JAXBException {
-        String configurationLoacation = TEST_CONFIGURATIONS_DIRECTORY
+    @Test(expected = InvalidConfigurationException.class)
+    public void testConfigurationWithNoClasses() {
+        loadConfiguration("no-classes.xml");
+    }
+
+    @Test(expected = InvalidConfigurationException.class)
+    public void testConfigurationWithNoClassName() {
+        loadConfiguration("no-class-name.xml");
+    }
+
+    @Test(expected = InvalidConfigurationException.class)
+    public void testConfigurationWithNoMethods() {
+        loadConfiguration("no-methods.xml");
+    }
+
+    @Test(expected = InvalidConfigurationException.class)
+    public void testConfigurationWithNoMethodName() {
+        loadConfiguration("no-method-name.xml");
+    }
+
+    @Test(expected = InvalidConfigurationException.class)
+    public void testConfigurationWithEmptyMethod() {
+        loadConfiguration("empty-method.xml");
+    }
+
+    @Test(expected = InvalidConfigurationException.class)
+    public void testConfigurationMethodWithBodyAndAfter() {
+        loadConfiguration("method-with-body-and-after.xml");
+    }
+
+    @Test(expected = InvalidConfigurationException.class)
+    public void testConfigurationMethodWithBodyAndBefore() {
+        loadConfiguration("method-with-body-and-before.xml");
+    }
+
+    @Test(expected = InvalidConfigurationException.class)
+    public void testConfigurationMethodWithEmptyAfter() {
+        loadConfiguration("method-with-empty-after.xml");
+    }
+
+    @Test(expected = InvalidConfigurationException.class)
+    public void testConfigurationMethodWithEmptyBefore() {
+        loadConfiguration("method-with-empty-before.xml");
+    }
+
+    @Test(expected = InvalidConfigurationException.class)
+    public void testConfigurationMethodWithEmptyBody() {
+        loadConfiguration("method-with-empty-body.xml");
+    }
+
+    private Configuration loadConfiguration(String fileName) {
+        String configurationLocation = TEST_CONFIGURATIONS_DIRECTORY
                 .resolve(fileName)
                 .toAbsolutePath()
                 .toString();
-        return new ConfigurationLoader(configurationLoacation).load();
+        return new ConfigurationLoader(configurationLocation).load();
     }
 
 }

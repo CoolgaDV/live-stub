@@ -2,8 +2,7 @@
 <configuration xmlns="http://ls.cdv/configuration">
     <class name="foo.Bar">
         <method name="baz">
-            <before>System.out.println("Before");</before>
-            <after>System.out.println("After");</after>
+            <body/>
         </method>
     </class>
 </configuration>

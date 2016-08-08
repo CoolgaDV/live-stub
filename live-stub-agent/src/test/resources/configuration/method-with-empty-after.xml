@@ -3,7 +3,7 @@
     <class name="foo.Bar">
         <method name="baz">
             <before>System.out.println("Before");</before>
-            <after>System.out.println("After");</after>
+            <after/>
         </method>
     </class>
 </configuration>

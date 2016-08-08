@@ -15,12 +15,12 @@ public class CommandLineParameters {
     public static CommandLineParameters read() {
         String verbose = System.getProperty(VERBOSE, Boolean.FALSE.toString()).toLowerCase();
         if ( ! Boolean.FALSE.toString().equals(verbose) && ! Boolean.TRUE.toString().equals(verbose)) {
-            throw new InvalidConfigurationException("'Verbose' property value is incorrect. " +
-                    "It should be case insensitive 'true' or 'false'");
+            throw new InvalidConfigurationException("Value of property '{0}' is incorrect. " +
+                    "It should be case insensitive 'true' or 'false'", VERBOSE);
         }
         String configurationLocation = System.getProperty(CONFIGURATION_LOCATION);
         if (configurationLocation == null) {
-            throw new InvalidConfigurationException("'Configuration location' property was not specified");
+            throw new InvalidConfigurationException("Property '{0}' was not specified", CONFIGURATION_LOCATION);
         }
         return new CommandLineParameters(Boolean.valueOf(verbose), configurationLocation);
     }
