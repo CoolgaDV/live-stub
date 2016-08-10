@@ -3,8 +3,10 @@ package cdv.ls;
 import cdv.ls.configuration.CommandLineParameters;
 import cdv.ls.configuration.Configuration;
 import cdv.ls.configuration.ConfigurationLoader;
+import cdv.ls.log.ConsoleLog;
+import cdv.ls.log.FakeLog;
+import cdv.ls.log.Log;
 
-import javax.xml.bind.JAXBException;
 import java.lang.instrument.Instrumentation;
 
 /**
@@ -15,10 +17,17 @@ import java.lang.instrument.Instrumentation;
  */
 public class LiveStubAgent {
 
-    public static void premain(String args, Instrumentation instrumentation) throws JAXBException {
+    public static void premain(String args, Instrumentation instrumentation) {
+
         CommandLineParameters parameters = CommandLineParameters.read();
-        Configuration configuration = new ConfigurationLoader(parameters.getConfigurationLocation()).load();
-        instrumentation.addTransformer(new ClassTransformer(configuration));
+        String configurationLocation = parameters.getConfigurationLocation();
+        Log log = parameters.isVerbose() ? new ConsoleLog() : new FakeLog();
+        log.print("Live stub is active. Configuration file location: {0}", configurationLocation);
+
+        Configuration configuration = new ConfigurationLoader(configurationLocation, log).load();
+
+        instrumentation.addTransformer(new ClassTransformer(configuration, log));
+        log.print("Bytecode transformer is registered");
     }
 
 }

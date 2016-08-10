@@ -1,5 +1,7 @@
 package cdv.ls.configuration;
 
+import cdv.ls.log.ConsoleLog;
+import cdv.ls.log.FakeLog;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -37,7 +39,7 @@ public class ConfigurationLoaderTest {
 
     @Test(expected = InvalidConfigurationException.class)
     public void testConfigurationLocationIsEmpty() {
-        new ConfigurationLoader("").load();
+        new ConfigurationLoader("", new FakeLog()).load();
     }
 
     @Test(expected = InvalidConfigurationException.class)
@@ -110,7 +112,7 @@ public class ConfigurationLoaderTest {
                 .resolve(fileName)
                 .toAbsolutePath()
                 .toString();
-        return new ConfigurationLoader(configurationLocation).load();
+        return new ConfigurationLoader(configurationLocation, new FakeLog()).load();
     }
 
 }

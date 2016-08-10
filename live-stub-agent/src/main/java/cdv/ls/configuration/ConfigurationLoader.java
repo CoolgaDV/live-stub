@@ -1,10 +1,13 @@
 package cdv.ls.configuration;
 
+import cdv.ls.log.Log;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.stream.Collectors;
 
 /**
  * Loads main configuration from external file
@@ -16,13 +19,20 @@ public class ConfigurationLoader {
 
     private final String configurationLocation;
 
-    public ConfigurationLoader(String configurationLocation) {
+    private final Log log;
+
+    public ConfigurationLoader(String configurationLocation, Log log) {
         this.configurationLocation = configurationLocation;
+        this.log = log;
     }
 
     public Configuration load() {
+        log.print("Parsing configuration...");
         Configuration configuration = parseConfiguration(getConfigurationFile());
+        log.print("Validating configuration...");
         validateConfiguration(configuration);
+        log.print("Configuration loading is complete. Methods and classes to be instrumented:{0}",
+                convertToLogString(configuration));
         return configuration;
     }
 
@@ -98,6 +108,15 @@ public class ConfigurationLoader {
                     "Value of node '{0}' should not be empty (class name: {1}, method name: {2})",
                     nodeName, className, methodName);
         }
+    }
+
+    private String convertToLogString(Configuration configuration) {
+        StringBuilder result = new StringBuilder();
+        for (Class cls : configuration.getClazz()) {
+            result.append("\n  ").append(cls.getName()).append("\n      ");
+            result.append(cls.getMethod().stream().map(Method::getName).collect(Collectors.joining("\n      ")));
+        }
+        return result.toString();
     }
 
 }

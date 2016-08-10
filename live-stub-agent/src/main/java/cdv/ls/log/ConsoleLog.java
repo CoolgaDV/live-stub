@@ -14,12 +14,14 @@ public class ConsoleLog extends Log {
     public void print(String message) {
         assertMessageNotNull(message);
         System.out.println(message);
+        System.out.flush();
     }
 
     @Override
     public void print(String message, Object... arguments) {
         assertMessageNotNull(message);
         System.out.println(MessageFormat.format(message, arguments));
+        System.out.flush();
     }
 
 }

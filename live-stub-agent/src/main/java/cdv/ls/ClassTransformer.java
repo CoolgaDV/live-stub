@@ -1,6 +1,7 @@
 package cdv.ls;
 
 import cdv.ls.configuration.Configuration;
+import cdv.ls.log.Log;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
@@ -16,8 +17,11 @@ public class ClassTransformer implements ClassFileTransformer {
 
     private final Configuration configuration;
 
-    public ClassTransformer(Configuration configuration) {
+    private final Log log;
+
+    public ClassTransformer(Configuration configuration, Log log) {
         this.configuration = configuration;
+        this.log = log;
     }
 
     @Override
