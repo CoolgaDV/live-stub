@@ -33,7 +33,7 @@ public class CommandLineParametersTest {
     }
 
     @Before
-    public void setDefaultProperties() throws Exception {
+    public void setDefaultProperties() {
         System.setProperty(CommandLineParameters.VERBOSE, Boolean.TRUE.toString());
         System.setProperty(CommandLineParameters.CONFIGURATION_LOCATION, CONFIGURATION_LOCATION_STUB);
     }
