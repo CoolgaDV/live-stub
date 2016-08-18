@@ -16,8 +16,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -53,6 +53,7 @@
                     <archive>
                         <manifestEntries>
                             <PreMain-Class>cdv.ls.LiveStubAgent</PreMain-Class>
+                            <Boot-Class-Path>javassist.jar</Boot-Class-Path>
                         </manifestEntries>
                     </archive>
                 </configuration>
