@@ -18,6 +18,7 @@
         <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -53,7 +54,7 @@
                     <archive>
                         <manifestEntries>
                             <PreMain-Class>cdv.ls.LiveStubAgent</PreMain-Class>
-                            <Boot-Class-Path>javassist.jar</Boot-Class-Path>
+                            <Boot-Class-Path>${javassist.jar.name}</Boot-Class-Path>
                         </manifestEntries>
                     </archive>
                 </configuration>

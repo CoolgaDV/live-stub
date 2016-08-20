@@ -14,11 +14,13 @@
 
     <modules>
         <module>live-stub-agent</module>
+        <module>live-stub-distributive</module>
     </modules>
 
     <properties>
         <jdk.version>1.8</jdk.version>
         <source.encoding>UTF-8</source.encoding>
+        <javassist.jar.name>javassist.jar</javassist.jar.name>
     </properties>
 
     <dependencyManagement>
@@ -86,6 +88,14 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.19.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.4.1</version>
+                    <configuration>
+                        <appendAssemblyId>false</appendAssemblyId>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
