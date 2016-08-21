@@ -22,6 +22,7 @@ public class SimpleApplication {
         METHODS.put(PRIVATE_STATIC, SimpleApplication::privateStaticMethod);
         METHODS.put(PRIVATE_INSTANCE, instance::privateInstanceMethod);
         METHODS.put(WITH_PARAMETERS, () -> instance.methodWithParams("abc", 123));
+        METHODS.put(WITH_EXCEPTION, instance::methodWithException);
     }
 
     public static void main(String[] args) {
@@ -43,6 +44,10 @@ public class SimpleApplication {
 
     public void methodWithParams(String first, int second) {
         print("method-with-params:" + first + ":" + second);
+    }
+
+    public void methodWithException() {
+        throw new RuntimeException("exception");
     }
 
     private void privateInstanceMethod() {

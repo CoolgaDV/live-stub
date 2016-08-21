@@ -11,6 +11,7 @@ enum SimpleApplicationMethod {
     PUBLIC_STATIC,
     PUBLIC_INSTANCE,
     WITH_PARAMETERS,
+    WITH_EXCEPTION,
     PRIVATE_STATIC,
     PRIVATE_INSTANCE
 }

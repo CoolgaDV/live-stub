@@ -11,6 +11,7 @@ import java.util.concurrent.TimeoutException;
 
 import static cdv.ls.test.SimpleApplicationMethod.*;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 /**
  * Set of integration tests for applying Live Stub to simple console application.
@@ -43,6 +44,9 @@ public class TestSimpleApplication {
                 { PRIVATE_INSTANCE, "body-private-instance-method.xml", "body" },
                 { PUBLIC_STATIC,    "body-public-static-method.xml",    "body" },
                 { PRIVATE_STATIC,   "body-private-static-method.xml",   "body" },
+
+                // Complex tests
+                { PUBLIC_INSTANCE,  "complex-before-after-method.xml",  "before-public-instance-method-after" },
         };
     }
 
@@ -50,6 +54,18 @@ public class TestSimpleApplication {
     public void testSimpleApplication(SimpleApplicationMethod method,
                                       String configurationLocation,
                                       String expectedOutput)
+            throws InterruptedException, TimeoutException, IOException {
+
+        assertEquals(runSimpleApplication(method, configurationLocation), expectedOutput);
+    }
+
+    @Test
+    public void testAfterWithException() throws InterruptedException, IOException, TimeoutException {
+        String output = runSimpleApplication(WITH_EXCEPTION, "after-with-exception.xml");
+        assertTrue(output.startsWith("finally-after"));
+    }
+
+    private String runSimpleApplication(SimpleApplicationMethod method, String configurationLocation)
             throws InterruptedException, TimeoutException, IOException {
 
         String jar = Paths.get(System.getProperty("build.directory"), System.getProperty("simple.application.jar"))
@@ -61,13 +77,12 @@ public class TestSimpleApplication {
                 .toString();
         String location = "-Dlive-stub.configuration-location=" + locationPath;
 
-        String output = new ProcessExecutor()
+        return new ProcessExecutor()
                 .directory(new File(System.getProperty("build.directory")))
                 .command("java", location, "-javaagent:live-stub.jar", "-jar", jar, method.toString())
                 .readOutput(true)
                 .execute()
                 .outputUTF8();
-        assertEquals(output, expectedOutput);
     }
 
 }
