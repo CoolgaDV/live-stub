@@ -62,10 +62,7 @@ class ClassTransformer implements ClassFileTransformer {
                 methodBuilder.insertBefore(method.getBefore());
             }
             if (method.getAfter() != null) {
-                methodBuilder.insertBefore("try {");
-                methodBuilder.insertAfter("} finally {");
-                methodBuilder.insertAfter(method.getAfter());
-                methodBuilder.insertAfter("}");
+                methodBuilder.insertAfter(method.getAfter(), true);
             }
         }
         byte[] byteCode = classBuilder.toBytecode();
