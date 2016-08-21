@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration xmlns="http://ls.cdv/configuration">
+    <class name="cdv.ls.test.SimpleApplication">
+        <method name="privateStaticMethod">
+            <before>print("before-");</before>
+        </method>
+    </class>
+</configuration>

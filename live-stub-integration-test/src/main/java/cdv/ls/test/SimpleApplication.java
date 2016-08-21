@@ -34,23 +34,23 @@ public class SimpleApplication {
     }
 
     public static void publicStaticMethod() {
-        print("publicStaticMethod");
+        print("public-static-method");
     }
 
     public void publicInstanceMethod() {
-        print("publicInstanceMethod");
+        print("public-instance-method");
     }
 
     public void methodWithParams(String first, int second) {
-        print("methodWithParams:" + first + ":" + second);
+        print("method-with-params:" + first + ":" + second);
     }
 
     private void privateInstanceMethod() {
-        print("privateInstanceMethod");
+        print("private-instance-method");
     }
 
     private static void privateStaticMethod() {
-        print("privateStaticMethod");
+        print("private-static-method");
     }
 
     private static void print(String message) {
