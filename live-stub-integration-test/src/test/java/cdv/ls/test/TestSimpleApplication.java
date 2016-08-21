@@ -2,8 +2,8 @@ package cdv.ls.test;
 
 import org.zeroturnaround.exec.ProcessExecutor;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeoutException;
 
@@ -15,11 +15,21 @@ import java.util.concurrent.TimeoutException;
  */
 public class TestSimpleApplication {
 
-    private String runSimpleApplication(SimpleApplicationMethod method)
+    private String runSimpleApplication(SimpleApplicationMethod method, String configurationLocation)
             throws InterruptedException, TimeoutException, IOException {
-        Path jar = Paths.get(System.getProperty("build.directory"), System.getProperty("simple.application.jar"));
+
+        String jar = Paths.get(System.getProperty("build.directory"), System.getProperty("simple.application.jar"))
+                .toAbsolutePath()
+                .toString();
+        String locationPath = Paths.get(System.getProperty("resources.directory"))
+                .resolve(configurationLocation)
+                .toAbsolutePath()
+                .toString();
+        String location = "-Dlive-stub.configuration-location=" + locationPath;
+
         return new ProcessExecutor()
-                .command("java", "-jar", jar.toAbsolutePath().toString(), method.toString())
+                .directory(new File(System.getProperty("build.directory")))
+                .command("java", location, "-javaagent:live-stub.jar", "-jar", jar, method.toString())
                 .readOutput(true)
                 .execute()
                 .outputUTF8();

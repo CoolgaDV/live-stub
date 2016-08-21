@@ -27,11 +27,16 @@
             <groupId>org.zeroturnaround</groupId>
             <artifactId>zt-exec</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cdv.ls</groupId>
+            <artifactId>live-stub-distributive</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -44,13 +49,35 @@
                     <finalName>${simple.application.jar.name}</finalName>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>cdv.ls</groupId>
+                                    <artifactId>live-stub-distributive</artifactId>
+                                    <type>zip</type>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <systemProperties>
                         <build.directory>${project.build.directory}</build.directory>
+                        <resources.directory>src/test/resources</resources.directory>
                         <simple.application.jar>${simple.application.jar.name}.jar</simple.application.jar>
                     </systemProperties>
                 </configuration>
