@@ -15,6 +15,7 @@
     <modules>
         <module>live-stub-agent</module>
         <module>live-stub-distributive</module>
+        <module>live-stub-integration-test</module>
     </modules>
 
     <properties>
@@ -34,6 +35,12 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.zeroturnaround</groupId>
+                <artifactId>zt-exec</artifactId>
+                <version>1.9</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
