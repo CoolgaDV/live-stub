@@ -21,7 +21,7 @@ public class SimpleApplication {
         METHODS.put(PUBLIC_INSTANCE, instance::publicInstanceMethod);
         METHODS.put(PRIVATE_STATIC, SimpleApplication::privateStaticMethod);
         METHODS.put(PRIVATE_INSTANCE, instance::privateInstanceMethod);
-        METHODS.put(WITH_PARAMETERS, () -> instance.methodWithParams("abc", 123));
+        METHODS.put(WITH_PARAMETERS, () -> instance.methodWithParameters("abc", 123));
         METHODS.put(WITH_EXCEPTION, instance::methodWithException);
     }
 
@@ -42,7 +42,7 @@ public class SimpleApplication {
         print("public-instance-method");
     }
 
-    public void methodWithParams(String first, int second) {
+    public void methodWithParameters(String first, int second) {
         print("method-with-params:" + first + ":" + second);
     }
 

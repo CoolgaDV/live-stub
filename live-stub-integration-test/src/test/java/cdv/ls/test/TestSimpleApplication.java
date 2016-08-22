@@ -27,26 +27,29 @@ public class TestSimpleApplication {
     public Object[][] provideTestData() {
         return new Object[][] {
 
-                // Before method tests
-                { PUBLIC_INSTANCE,  "before-public-instance-method.xml",    "before-public-instance-method" },
-                { PRIVATE_INSTANCE, "before-private-instance-method.xml",   "before-private-instance-method" },
-                { PUBLIC_STATIC,    "before-public-static-method.xml",      "before-public-static-method" },
-                { PRIVATE_STATIC,   "before-private-static-method.xml",     "before-private-static-method" },
+            // Before method tests
+            { PUBLIC_INSTANCE,  "before-public-instance-method.xml",    "before-public-instance-method" },
+            { PRIVATE_INSTANCE, "before-private-instance-method.xml",   "before-private-instance-method" },
+            { PUBLIC_STATIC,    "before-public-static-method.xml",      "before-public-static-method" },
+            { PRIVATE_STATIC,   "before-private-static-method.xml",     "before-private-static-method" },
+            { WITH_PARAMETERS,   "before-with-parameters.xml",          "method-with-params:def:456" },
 
-                // After method tests
-                { PUBLIC_INSTANCE,  "after-public-instance-method.xml",     "public-instance-method-after" },
-                { PRIVATE_INSTANCE, "after-private-instance-method.xml",    "private-instance-method-after" },
-                { PUBLIC_STATIC,    "after-public-static-method.xml",       "public-static-method-after" },
-                { PRIVATE_STATIC,   "after-private-static-method.xml",      "private-static-method-after" },
+            // After method tests
+            { PUBLIC_INSTANCE,  "after-public-instance-method.xml",     "public-instance-method-after" },
+            { PRIVATE_INSTANCE, "after-private-instance-method.xml",    "private-instance-method-after" },
+            { PUBLIC_STATIC,    "after-public-static-method.xml",       "public-static-method-after" },
+            { PRIVATE_STATIC,   "after-private-static-method.xml",      "private-static-method-after" },
+            { WITH_PARAMETERS,  "after-with-parameters.xml",            "method-with-params:abc:123-after:abc:123" },
 
-                // Method body tests
-                { PUBLIC_INSTANCE,  "body-public-instance-method.xml",  "body" },
-                { PRIVATE_INSTANCE, "body-private-instance-method.xml", "body" },
-                { PUBLIC_STATIC,    "body-public-static-method.xml",    "body" },
-                { PRIVATE_STATIC,   "body-private-static-method.xml",   "body" },
+            // Method body tests
+            { PUBLIC_INSTANCE,  "body-public-instance-method.xml",  "body" },
+            { PRIVATE_INSTANCE, "body-private-instance-method.xml", "body" },
+            { PUBLIC_STATIC,    "body-public-static-method.xml",    "body" },
+            { PRIVATE_STATIC,   "body-private-static-method.xml",   "body" },
+            { WITH_PARAMETERS,  "body-with-parameters.xml",         "body:abc:123" },
 
-                // Complex tests
-                { PUBLIC_INSTANCE,  "complex-before-after-method.xml",  "before-public-instance-method-after" },
+            // Complex tests
+            { PUBLIC_INSTANCE,  "complex-before-after-method.xml",  "before-public-instance-method-after" },
         };
     }
 
