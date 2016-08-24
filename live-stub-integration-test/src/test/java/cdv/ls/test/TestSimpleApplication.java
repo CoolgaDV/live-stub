@@ -47,6 +47,7 @@ public class TestSimpleApplication {
             { PUBLIC_STATIC,    "body-public-static-method.xml",    "body" },
             { PRIVATE_STATIC,   "body-private-static-method.xml",   "body" },
             { WITH_PARAMETERS,  "body-with-parameters.xml",         "body:abc:123" },
+            { PUBLIC_INSTANCE,  "body-with-cdata.xml",              "<&body&>" },
 
             // Complex tests
             { PUBLIC_INSTANCE,  "complex-before-after-method.xml",  "before-public-instance-method-after" },
