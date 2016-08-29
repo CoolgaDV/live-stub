@@ -12,7 +12,7 @@
     <parent>
         <artifactId>live-stub-root</artifactId>
         <groupId>cdv.ls</groupId>
-        <version>1.1</version>
+        <version>1.2-SNAPSHOT</version>
     </parent>
 
     <dependencies>
