@@ -1,27 +1,23 @@
 # Live Stub
 
-_Documentation is in the process of writing..._
-
-## Overview
-
 Live Stub is a Java agent library which allows to instrument bytecode.
 It allows to mutate methods' implementation without source code 
 modification. It can be useful for integration testing purposes or local 
 debug sessions, when reproducing the whole application environment 
 (databases, third party services) is a rather difficult task.
 
-## Command line arguments
+## Setup
 
-The following command line arguments should be added:
+Unpack Live Stub distributive, create configuration file 
+(read **Configuration format** section for details) and add the following
+command line arguments to your application's start script:
 
 * `-javaagent:<path to live stub jar file>` - 
 standard way to specify Java agent library for your application. 
 This parameter is mandatory.
 
 * `-Dlive-stub.configuration-location=<path to configuration file location>` - 
-path to configuration file for Live Stub. 
-For details see **Configuration file** section below.
-This parameter is mandatory.
+path to configuration file for Live Stub. This parameter is mandatory.
 
 * `-Dlive-stub.verbose=<true or false>` - 
 enables or disables diagnostic console output. This parameter is optional. Default value is `false`.
@@ -52,6 +48,7 @@ Here is an example of configuration file:
 `method` tag should contain at least on of the following tags: `before`, `body` and `after` 
 
 * `before` - block of code that will be executed before the original method body.
-* `body` - block of code that will be executed instead of the original method body.
+* `body` - block of code that will be executed instead of the original method body. 
+If this tag specified, `before` and `after` tags should not be used.
 * `after` - block of code that will be executed after the original method body in finally block 
 (in order to guarantee code execution).
