@@ -54,7 +54,7 @@ class ClassTransformer implements ClassFileTransformer {
         CtClass classBuilder = ClassPool.getDefault().get(classToInstrument.getName());
         for (Method method : classToInstrument.getMethod()) {
             CtMethod methodBuilder = classBuilder.getDeclaredMethod(method.getName());
-            log.print("Instrumenting {}::{}", classToInstrument.getName(), method.getName());
+            log.print("Instrumenting {0}::{0}", classToInstrument.getName(), method.getName());
             if (method.getBody() != null) {
                 methodBuilder.setBody(method.getBody());
             }
