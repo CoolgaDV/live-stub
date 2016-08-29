@@ -49,9 +49,9 @@ change_project_version "\${parsedVersion.majorVersion}.\${parsedVersion.minorVer
 release_version=$(get_project_version)
 
 info "Release version is set: ${release_version}"
-info "Building release...\n"
+info "Building and publishing release...\n"
 
-mvn clean install
+mvn clean deploy
 
 info "Release build is done"
 info "Committing and pushing changes to VCS...\n"
