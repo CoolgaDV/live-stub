@@ -6,6 +6,30 @@ modification. It can be useful for integration testing purposes or local
 debug sessions, when reproducing the whole application environment 
 (databases, third party services) is a rather difficult task.
 
+## Downloads
+
+Live Stub latest release distributive is available [here]
+(https://bintray.com/coolgadv/cdv-generic-repository/download_file?file_path=live-stub-distributive-1.1.zip).
+
+It is also available as a Maven dependency.
+
+Repository:
+```xml
+<repository>
+    <id>cdv-repo</id>
+    <url>http://dl.bintray.com/coolgadv/cdv-maven-repository</url>
+</repository>
+```
+Dependency:
+```xml
+<dependency>
+    <groupId>cdv.ls</groupId>
+    <artifactId>live-stub-distributive</artifactId>
+    <version>1.1</version>
+    <type>zip</type>
+</dependency>
+```
+
 ## Setup
 
 Unpack Live Stub distributive, create configuration file 
@@ -16,7 +40,7 @@ command line arguments to your application's start script:
 standard way to specify Java agent library for your application. 
 This parameter is mandatory.
 
-* `-Dlive-stub.configuration-location=<path to configuration file location>` - 
+* `-Dlive-stub.configuration-location=<path to configuration file>` - 
 path to configuration file for Live Stub. This parameter is mandatory.
 
 * `-Dlive-stub.verbose=<true or false>` - 
