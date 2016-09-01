@@ -4,9 +4,10 @@
 # Script does the following things:
 # 1. Truncates '-SNAPSHOT' postfix for current version
 # 2. Builds project
-# 3. Makes commit with appropriate release tag and push to VCS
-# 4. Sets up next development version
-# 5. Makes commit and push to VCS
+# 3. Uploads distributive to Bintray generic binary repository
+# 4. Makes commit with appropriate release tag and push to VCS
+# 5. Sets up next development version
+# 6. Makes commit and push to VCS
 
 # Any command failure should terminate the script
 set -e
@@ -29,8 +30,10 @@ function change_project_version {
         versions:commit
 }
 
-if [ "$#" -ne 1 ]; then
-    info "Release script takes 1 argument. It should be either 'major' or 'minor'"
+if [ "$#" -ne 2 ]; then
+    info "Release script takes 2 argument."
+    info "First is a release type. It should be either 'major' or 'minor'."
+    info "Second is Bintray API key for distributive upload."
     exit 1
 fi
 
@@ -54,6 +57,24 @@ info "Building and publishing release...\n"
 mvn clean deploy
 
 info "Release build is done"
+info "Uploading distributive to Bintray...\n"
+
+bintray_api_key=$2
+bintray_base_url=https://api.bintray.com/content/coolgadv/cdv-generic-repository/live-stub/${release_version}
+distributive_file=live-stub-distributive-${release_version}.zip
+
+curl -T live-stub-distributive/target/${distributive_file} \
+     -ucoolgadv:${bintray_api_key} \
+     ${bintray_base_url}/${distributive_file}
+
+info "\nDistributive is uploaded to Bintray"
+info "Publishing distributive at Bintray...\n"
+
+curl -X POST \
+     -ucoolgadv:${bintray_api_key} \
+     ${bintray_base_url}/publish
+
+info "\nDistributive is published at Bintray"
 info "Committing and pushing changes to VCS...\n"
 
 git add -A
